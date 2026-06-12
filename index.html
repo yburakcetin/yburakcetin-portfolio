@@ -46,14 +46,10 @@
             background: rgba(10, 10, 15, 0.85);
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border);
-            display: flex; justify-content: space-between; align-items: center;
+            display: flex; justify-content: center; align-items: center;
             transition: all 0.3s;
         }
         nav.scrolled { padding: 0.6rem 2rem; background: rgba(10, 10, 15, 0.95); }
-        .nav-logo {
-            font-size: 1.2rem; font-weight: 700;
-            background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-        }
         .nav-links { display: flex; gap: 2rem; list-style: none; }
         .nav-links a {
             color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;
@@ -271,8 +267,9 @@
         .cert-icon {
             width: 40px; height: 40px; min-width: 40px; border-radius: 10px;
             background: rgba(0, 212, 170, 0.1); display: flex; align-items: center;
-            justify-content: center; font-size: 1.1rem;
+            justify-content: center; font-size: 1.1rem; overflow: hidden;
         }
+        .cert-icon img { width: 28px; height: 28px; object-fit: contain; }
         .cert-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.2rem; }
         .cert-card p { font-size: 0.8rem; color: var(--text-muted); }
 
@@ -315,7 +312,6 @@
 </head>
 <body>
     <nav id="navbar">
-        <div class="nav-logo">YBC</div>
         <ul class="nav-links" id="navLinks">
             <li><a href="#skills" onclick="closeNav()">Skills</a></li>
             <li><a href="#projects" onclick="closeNav()">Projects</a></li>
@@ -373,7 +369,7 @@
             <div class="skill-card reveal">
                 <div class="skill-icon"><img src="images/python.png" alt="Python"></div>
                 <h3>Python</h3>
-                <p>Currently learning — data manipulation, analysis, and visualization with pandas & matplotlib.</p>
+                <p>Currently Learning ⏳</p>
             </div>
             <div class="skill-card reveal">
                 <div class="skill-icon">🧹</div>
@@ -488,34 +484,34 @@
             <h2 class="section-title">Certifications</h2>
         </div>
         <div class="cert-grid">
-            <div class="cert-card reveal">
-                <div class="cert-icon">📗</div>
+            <a href="https://www.udemy.com/certificate/UC-9bc2ae42-9547-4af1-b23f-5cdffcc5ca5e/" target="_blank" class="cert-card reveal" style="text-decoration:none; color:inherit;">
+                <div class="cert-icon"><img src="images/excel.png" alt="Excel"></div>
                 <div>
                     <h4>Microsoft Excel: Beginner to Expert</h4>
                     <p>Instructor: Emre Akyuz</p>
                 </div>
-            </div>
-            <div class="cert-card reveal">
-                <div class="cert-icon">📊</div>
+            </a>
+            <a href="https://www.udemy.com/certificate/UC-be6e3356-3e12-4b58-bf4c-5e256b25c805/" target="_blank" class="cert-card reveal" style="text-decoration:none; color:inherit;">
+                <div class="cert-icon"><img src="images/power_bi.png" alt="Power BI"></div>
                 <div>
                     <h4>Power BI | Power Query, DAX, Power Pivot</h4>
                     <p>Instructor: Oguzhan Colak</p>
                 </div>
-            </div>
-            <div class="cert-card reveal">
-                <div class="cert-icon">🗄️</div>
+            </a>
+            <a href="https://www.udemy.com/certificate/UC-3db54b67-44c3-40a9-96c7-babd46597f38/" target="_blank" class="cert-card reveal" style="text-decoration:none; color:inherit;">
+                <div class="cert-icon"><img src="images/sql.png" alt="SQL"></div>
                 <div>
                     <h4>Industry-Focused SQL Training</h4>
                     <p>Instructor: Nafiz Altay</p>
                 </div>
-            </div>
-            <div class="cert-card reveal">
-                <div class="cert-icon">🔍</div>
+            </a>
+            <a href="https://www.udemy.com/certificate/UC-0e03210a-4c24-4213-b066-20dc92bea68b/" target="_blank" class="cert-card reveal" style="text-decoration:none; color:inherit;">
+                <div class="cert-icon"><img src="images/sql.png" alt="SQL"></div>
                 <div>
                     <h4>Advanced SQL Querying Techniques</h4>
                     <p>Instructor: Alice Zhao</p>
                 </div>
-            </div>
+            </a>
             <div class="cert-card reveal">
                 <div class="cert-icon">🌐</div>
                 <div>
