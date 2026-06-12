@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Yigithan Burak Cetin | Data Analyst Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        :root {
+            --bg-primary: #0a0a0f;
+            --bg-secondary: #12121a;
+            --bg-card: #1a1a25;
+            --accent: #6c63ff;
+            --accent-glow: rgba(108, 99, 255, 0.3);
+            --accent-secondary: #00d4aa;
+            --text-primary: #f0f0f5;
+            --text-secondary: #8888a0;
+            --text-muted: #555570;
+            --border: #2a2a3a;
+            --gradient-1: linear-gradient(135deg, #6c63ff, #00d4aa);
+            --gradient-2: linear-gradient(135deg, #6c63ff, #e91e8c);
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'Inter', -apple-system, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--bg-primary); }
+        ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 3px; }
+
+        /* Nav */
+        nav {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 1rem 2rem;
+            background: rgba(10, 10, 15, 0.85);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid var(--border);
+            display: flex; justify-content: space-between; align-items: center;
+            transition: all 0.3s;
+        }
+        nav.scrolled { padding: 0.6rem 2rem; background: rgba(10, 10, 15, 0.95); }
+        .nav-logo {
+            font-size: 1.2rem; font-weight: 700;
+            background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .nav-links { display: flex; gap: 2rem; list-style: none; }
+        .nav-links a {
+            color: var(--text-secondary); text-decoration: none; font-size: 0.9rem;
+            font-weight: 500; transition: color 0.3s; position: relative;
+        }
+        .nav-links a::after {
+            content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px;
+            background: var(--gradient-1); transition: width 0.3s;
+        }
+        .nav-links a:hover { color: var(--text-primary); }
+        .nav-links a:hover::after { width: 100%; }
+
+        .hamburger { display: none; flex-direction: column; cursor: pointer; gap: 5px; }
+        .hamburger span { width: 25px; height: 2px; background: var(--text-primary); transition: 0.3s; }
+
+        /* Hero */
+        .hero {
+            min-height: 100vh; display: flex; align-items: center; justify-content: center;
+            padding: 6rem 2rem 4rem; position: relative;
+        }
+        .hero-bg {
+            position: absolute; inset: 0; overflow: hidden;
+        }
+        .hero-bg .orb {
+            position: absolute; border-radius: 50%; filter: blur(80px); opacity: 0.15;
+            animation: float 8s ease-in-out infinite;
+        }
+        .hero-bg .orb:nth-child(1) { width: 500px; height: 500px; background: var(--accent); top: -10%; left: -10%; }
+        .hero-bg .orb:nth-child(2) { width: 400px; height: 400px; background: var(--accent-secondary); bottom: -10%; right: -10%; animation-delay: -4s; }
+
+        @keyframes float {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            50% { transform: translate(30px, -30px) scale(1.05); }
+        }
+
+        .hero-content { position: relative; text-align: center; max-width: 800px; }
+        .hero-avatar-wrapper {
+            width: 158px; height: 158px; border-radius: 50%; margin: 0 auto 1.5rem;
+            display: block; position: relative;
+            background: var(--gradient-1); padding: 3px;
+            box-shadow: 0 0 40px var(--accent-glow), 0 0 80px rgba(108, 99, 255, 0.15);
+            animation: fadeInUp 0.6s ease;
+        }
+        .hero-avatar-wrapper img {
+            width: 100%; height: 100%; border-radius: 50%; object-fit: cover;
+            display: block; border: 3px solid var(--bg-primary);
+        }
+        .hero-badge {
+            display: inline-flex; align-items: center; gap: 0.5rem;
+            padding: 0.5rem 1.2rem; border-radius: 50px;
+            background: rgba(108, 99, 255, 0.1); border: 1px solid rgba(108, 99, 255, 0.3);
+            font-size: 0.85rem; color: var(--accent); font-weight: 500;
+            margin-bottom: 1.5rem; animation: fadeInUp 0.6s ease;
+        }
+        .hero-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent-secondary); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 6vw, 4.5rem); font-weight: 800;
+            line-height: 1.1; margin-bottom: 1.5rem; animation: fadeInUp 0.6s ease 0.1s both;
+        }
+        .hero h1 .gradient-text {
+            background: var(--gradient-1); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+        }
+        .hero p {
+            font-size: 1.15rem; color: var(--text-secondary); max-width: 600px; margin: 0 auto 2rem;
+            animation: fadeInUp 0.6s ease 0.2s both;
+        }
+        .hero-buttons {
+            display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+            animation: fadeInUp 0.6s ease 0.3s both;
+        }
+        .btn {
+            padding: 0.8rem 2rem; border-radius: 12px; font-size: 0.95rem;
+            font-weight: 600; text-decoration: none; transition: all 0.3s; cursor: pointer; border: none;
+        }
+        .btn-primary {
+            background: var(--gradient-1); color: #fff;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+        .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px var(--accent-glow); }
+        .btn-outline {
+            background: transparent; color: var(--text-primary);
+            border: 1px solid var(--border);
+        }
+        .btn-outline:hover { border-color: var(--accent); background: rgba(108, 99, 255, 0.05); }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Sections */
+        section { padding: 5rem 2rem; max-width: 1100px; margin: 0 auto; }
+        .section-header { text-align: center; margin-bottom: 3.5rem; }
+        .section-label {
+            font-size: 0.8rem; font-weight: 600; text-transform: uppercase;
+            letter-spacing: 3px; color: var(--accent); margin-bottom: 0.8rem;
+        }
+        .section-title { font-size: 2.2rem; font-weight: 700; }
+
+        /* Skills */
+        .skills-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 1.5rem;
+        }
+        .skill-card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 16px;
+            padding: 1.8rem; transition: all 0.3s; position: relative; overflow: hidden;
+        }
+        .skill-card::before {
+            content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+            background: var(--gradient-1); transform: scaleX(0); transition: transform 0.3s;
+        }
+        .skill-card:hover { border-color: var(--accent); transform: translateY(-4px); }
+        .skill-card:hover::before { transform: scaleX(1); }
+        .skill-icon {
+            width: 48px; height: 48px; border-radius: 12px;
+            background: rgba(108, 99, 255, 0.1); display: flex; align-items: center;
+            justify-content: center; font-size: 1.4rem; margin-bottom: 1rem; overflow: hidden;
+        }
+        .skill-icon img { width: 32px; height: 32px; object-fit: contain; }
+        .skill-card h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.4rem; }
+        .skill-card p { font-size: 0.85rem; color: var(--text-secondary); }
+
+        /* Projects */
+        .projects-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2rem;
+        }
+        .project-card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 20px;
+            overflow: hidden; transition: all 0.4s; position: relative; group: project;
+        }
+        .project-card:hover { border-color: var(--accent); transform: translateY(-6px); box-shadow: 0 20px 60px rgba(0,0,0,0.3); }
+        .project-image {
+            width: 100%; height: 220px; background: var(--bg-secondary);
+            display: flex; align-items: center; justify-content: center;
+            position: relative; overflow: hidden;
+        }
+        .project-image .placeholder {
+            display: flex; flex-direction: column; align-items: center; gap: 0.8rem;
+            color: var(--text-muted);
+        }
+        .project-image .placeholder svg { width: 48px; height: 48px; opacity: 0.4; }
+        .project-image .placeholder span { font-size: 0.8rem; }
+        .project-image img {
+            width: 100%; height: 100%; object-fit: cover; transition: transform 0.4s;
+        }
+        .project-card:hover .project-image img { transform: scale(1.05); }
+        .project-overlay {
+            position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,10,15,0.9), transparent);
+            opacity: 0; transition: opacity 0.3s; display: flex; align-items: flex-end; padding: 1.5rem;
+        }
+        .project-card:hover .project-overlay { opacity: 1; }
+        .project-body { padding: 1.5rem; }
+        .project-tag {
+            display: inline-block; padding: 0.3rem 0.8rem; border-radius: 6px;
+            background: rgba(108, 99, 255, 0.1); color: var(--accent);
+            font-size: 0.75rem; font-weight: 600; margin-bottom: 0.8rem;
+        }
+        .project-tag.green { background: rgba(0, 212, 170, 0.1); color: var(--accent-secondary); }
+        .project-body h3 { font-size: 1.15rem; font-weight: 600; margin-bottom: 0.6rem; }
+        .project-body p { font-size: 0.88rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 1rem; }
+        .project-link {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.5rem 1rem; border-radius: 8px; background: rgba(108, 99, 255, 0.1);
+            color: var(--accent); text-decoration: none; font-size: 0.8rem; font-weight: 600;
+            transition: all 0.3s; margin-top: 0.8rem;
+        }
+        .project-link:hover { background: rgba(108, 99, 255, 0.2); transform: translateY(-1px); }
+        .project-link svg { width: 16px; height: 16px; }
+        .project-tech { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+        .project-tech span {
+            padding: 0.25rem 0.6rem; border-radius: 6px; font-size: 0.75rem;
+            background: var(--bg-secondary); color: var(--text-muted); font-family: 'JetBrains Mono', monospace;
+        }
+
+        /* Experience */
+        .timeline { position: relative; padding-left: 2rem; }
+        .timeline::before {
+            content: ''; position: absolute; left: 0; top: 0; bottom: 0; width: 2px;
+            background: linear-gradient(to bottom, var(--accent), var(--accent-secondary));
+        }
+        .timeline-item { position: relative; margin-bottom: 2.5rem; padding-left: 1.5rem; }
+        .timeline-item::before {
+            content: ''; position: absolute; left: -2rem; top: 6px;
+            width: 12px; height: 12px; border-radius: 50%;
+            background: var(--accent); border: 3px solid var(--bg-primary);
+            transform: translateX(-5px);
+        }
+        .timeline-date {
+            font-size: 0.8rem; color: var(--accent); font-weight: 600;
+            font-family: 'JetBrains Mono', monospace; margin-bottom: 0.4rem;
+        }
+        .timeline-item h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.2rem; }
+        .timeline-item h4 { font-size: 0.9rem; color: var(--text-secondary); margin-bottom: 0.6rem; font-weight: 500; }
+        .timeline-item ul { list-style: none; }
+        .timeline-item li {
+            font-size: 0.88rem; color: var(--text-secondary); padding: 0.3rem 0;
+            padding-left: 1.2rem; position: relative;
+        }
+        .timeline-item li::before {
+            content: '▸'; position: absolute; left: 0; color: var(--accent-secondary);
+        }
+
+        /* Certifications */
+        .cert-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 1.2rem;
+        }
+        .cert-card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+            padding: 1.4rem; display: flex; align-items: flex-start; gap: 1rem;
+            transition: all 0.3s;
+        }
+        .cert-card:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .cert-icon {
+            width: 40px; height: 40px; min-width: 40px; border-radius: 10px;
+            background: rgba(0, 212, 170, 0.1); display: flex; align-items: center;
+            justify-content: center; font-size: 1.1rem;
+        }
+        .cert-card h4 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.2rem; }
+        .cert-card p { font-size: 0.8rem; color: var(--text-muted); }
+
+        /* Contact */
+        .contact-section { text-align: center; }
+        .contact-links { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+        .contact-link {
+            display: flex; align-items: center; gap: 0.6rem;
+            padding: 0.9rem 1.5rem; border-radius: 12px; background: var(--bg-card);
+            border: 1px solid var(--border); text-decoration: none; color: var(--text-primary);
+            transition: all 0.3s; font-size: 0.9rem;
+        }
+        .contact-link:hover { border-color: var(--accent); transform: translateY(-2px); }
+        .contact-link svg { width: 20px; height: 20px; }
+
+        /* Footer */
+        footer {
+            text-align: center; padding: 2rem; border-top: 1px solid var(--border);
+            color: var(--text-muted); font-size: 0.8rem;
+        }
+
+        /* Scroll animations */
+        .reveal { opacity: 0; transform: translateY(40px); transition: all 0.7s ease; }
+        .reveal.active { opacity: 1; transform: translateY(0); }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-links { 
+                position: fixed; top: 0; right: -100%; width: 70%; height: 100vh;
+                background: var(--bg-secondary); flex-direction: column; padding: 5rem 2rem;
+                transition: right 0.3s; border-left: 1px solid var(--border);
+            }
+            .nav-links.open { right: 0; }
+            .hamburger { display: flex; z-index: 1001; }
+            .projects-grid { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 2.2rem; }
+            section { padding: 3rem 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="nav-logo">YBC</div>
+        <ul class="nav-links" id="navLinks">
+            <li><a href="#skills" onclick="closeNav()">Skills</a></li>
+            <li><a href="#projects" onclick="closeNav()">Projects</a></li>
+            <li><a href="#experience" onclick="closeNav()">Experience</a></li>
+            <li><a href="#certifications" onclick="closeNav()">Certifications</a></li>
+            <li><a href="#contact" onclick="closeNav()">Contact</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger" onclick="toggleNav()">
+            <span></span><span></span><span></span>
+        </div>
+    </nav>
+
+    <!-- Hero -->
+    <section class="hero">
+        <div class="hero-bg">
+            <div class="orb"></div>
+            <div class="orb"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-avatar-wrapper">
+                <img src="images/profile_pic.png" alt="Burak Cetin">
+            </div>
+            <div class="hero-badge"><span class="dot"></span> Open to Opportunities</div>
+            <h1>Hi, I'm <span class="gradient-text">Burak Cetin</span></h1>
+            <p>Aspiring Data Analyst who transforms raw data into meaningful insights. Skilled in SQL, Power BI, and Excel with a passion for data-driven decision making.</p>
+            <div class="hero-buttons">
+                <a href="#projects" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn btn-outline">Get In Touch</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills -->
+    <section id="skills">
+        <div class="section-header reveal">
+            <p class="section-label">What I Do</p>
+            <h2 class="section-title">Skills & Tools</h2>
+        </div>
+        <div class="skills-grid">
+            <div class="skill-card reveal">
+                <div class="skill-icon"><img src="images/sql.png" alt="SQL"></div>
+                <h3>SQL</h3>
+                <p>MySQL, PostgreSQL — complex queries, data cleaning, EDA, and performance analysis.</p>
+            </div>
+            <div class="skill-card reveal">
+                <div class="skill-icon"><img src="images/power_bi.png" alt="Power BI"></div>
+                <h3>Microsoft Power BI</h3>
+                <p>Interactive dashboards, DAX formulas, Power Query, and data modeling for business insights.</p>
+            </div>
+            <div class="skill-card reveal">
+                <div class="skill-icon"><img src="images/excel.png" alt="Excel"></div>
+                <h3>Microsoft Excel</h3>
+                <p>Pivot Tables, advanced formulas, data validation, and dashboard creation.</p>
+            </div>
+            <div class="skill-card reveal">
+                <div class="skill-icon"><img src="images/python.png" alt="Python"></div>
+                <h3>Python</h3>
+                <p>Currently learning — data manipulation, analysis, and visualization with pandas & matplotlib.</p>
+            </div>
+            <div class="skill-card reveal">
+                <div class="skill-icon">🧹</div>
+                <h3>Data Cleaning</h3>
+                <p>Resolving duplicates, missing values, inconsistent formats, and data standardization.</p>
+            </div>
+            <div class="skill-card reveal">
+                <div class="skill-icon">✅</div>
+                <h3>Data Validation</h3>
+                <p>QA processes, accuracy checks, and ensuring data integrity across datasets.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects -->
+    <section id="projects">
+        <div class="section-header reveal">
+            <p class="section-label">Portfolio</p>
+            <h2 class="section-title">Featured Projects</h2>
+        </div>
+        <div class="projects-grid">
+            <!-- Project 1 -->
+            <div class="project-card reveal">
+                <div class="project-image" id="projectImg1">
+                    <img src="images/ecommerce.png" alt="E-Commerce Analysis">
+                </div>
+                <div class="project-body">
+                    <span class="project-tag">PostgreSQL + Power BI</span>
+                    <h3>E-Commerce Data Analysis</h3>
+                    <p>Cleaned and analyzed a synthetic ecommerce dataset using PostgreSQL. Built a 3-page Power BI dashboard tracking revenue trends, top products, customer segments, and country-level performance.</p>
+                    <div class="project-tech">
+                        <span>PostgreSQL</span>
+                        <span>Power BI</span>
+                        <span>DAX</span>
+                        <span>EDA</span>
+                    </div>
+                    <a href="https://github.com/yburakcetin/ecommerce-postgresql-powerbi-dashboard" target="_blank" class="project-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        View on GitHub
+                    </a>
+                </div>
+            </div>
+
+            <!-- Project 2 -->
+            <div class="project-card reveal">
+                <div class="project-image" id="projectImg2">
+                    <div class="placeholder">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M2.25 15.75l5.159-5.159a2.25 2.25 0 013.182 0l5.159 5.159m-1.5-1.5l1.409-1.409a2.25 2.25 0 013.182 0l2.909 2.909M3.75 21h16.5a1.5 1.5 0 001.5-1.5V5.25a1.5 1.5 0 00-1.5-1.5H3.75a1.5 1.5 0 00-1.5 1.5v14.25a1.5 1.5 0 001.5 1.5z" />
+                        </svg>
+                        <span>Add your project screenshot here</span>
+                    </div>
+                    <!-- Replace the div above with: <img src="your-image.jpg" alt="Coffee Shop Dashboard"> -->
+                </div>
+                <div class="project-body">
+                    <span class="project-tag green">Excel</span>
+                    <h3>Coffee Shop Sales Dashboard</h3>
+                    <p>Cleaned and standardized a 1,000-row coffee shop sales dataset in Excel. Built an interactive dashboard with Pivot Tables tracking Total Sales, Orders, Average Order Value, Top Products, and Locations.</p>
+                    <div class="project-tech">
+                        <span>Excel</span>
+                        <span>Pivot Tables</span>
+                        <span>Data Cleaning</span>
+                        <span>QA</span>
+                    </div>
+                    <a href="https://github.com/yburakcetin/coffee-shop-sales-data-cleaning-project#coffee-shop-sales-data-cleaning--dashboard-project" target="_blank" class="project-link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+                        View on GitHub
+                    </a>
+                </div>
+            </div>
+
+            <!-- Add more project cards here by copying the pattern above -->
+        </div>
+    </section>
+
+    <!-- Experience -->
+    <section id="experience">
+        <div class="section-header reveal">
+            <p class="section-label">Career</p>
+            <h2 class="section-title">Work Experience</h2>
+        </div>
+        <div class="timeline">
+            <div class="timeline-item reveal">
+                <div class="timeline-date">Mar 2025 — Nov 2025</div>
+                <h3>Retail Sales Associate</h3>
+                <h4>FILE Market · Bolu, Turkey</h4>
+                <ul>
+                    <li>Managed high-volume daily transactions with strong financial accuracy</li>
+                    <li>Ensured reliability and consistency of POS data records</li>
+                    <li>Supported inventory tracking and stock reconciliation processes</li>
+                    <li>Maintained structured, detail-oriented standards in a fast-paced environment</li>
+                </ul>
+            </div>
+            <div class="timeline-item reveal">
+                <div class="timeline-date">Jan 2024 — Aug 2024</div>
+                <h3>Packing Process Operator</h3>
+                <h4>Seeka Limited · Gisborne, New Zealand</h4>
+                <ul>
+                    <li>Monitored production workflow to maintain operational efficiency</li>
+                    <li>Ensured compliance with quality assurance and export standards</li>
+                    <li>Identified workflow inefficiencies and supported process improvements</li>
+                    <li>Maintained accurate production data and documentation</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Certifications -->
+    <section id="certifications">
+        <div class="section-header reveal">
+            <p class="section-label">Learning</p>
+            <h2 class="section-title">Certifications</h2>
+        </div>
+        <div class="cert-grid">
+            <div class="cert-card reveal">
+                <div class="cert-icon">📗</div>
+                <div>
+                    <h4>Microsoft Excel: Beginner to Expert</h4>
+                    <p>Instructor: Emre Akyuz</p>
+                </div>
+            </div>
+            <div class="cert-card reveal">
+                <div class="cert-icon">📊</div>
+                <div>
+                    <h4>Power BI | Power Query, DAX, Power Pivot</h4>
+                    <p>Instructor: Oguzhan Colak</p>
+                </div>
+            </div>
+            <div class="cert-card reveal">
+                <div class="cert-icon">🗄️</div>
+                <div>
+                    <h4>Industry-Focused SQL Training</h4>
+                    <p>Instructor: Nafiz Altay</p>
+                </div>
+            </div>
+            <div class="cert-card reveal">
+                <div class="cert-icon">🔍</div>
+                <div>
+                    <h4>Advanced SQL Querying Techniques</h4>
+                    <p>Instructor: Alice Zhao</p>
+                </div>
+            </div>
+            <div class="cert-card reveal">
+                <div class="cert-icon">🌐</div>
+                <div>
+                    <h4>IELTS — 5.5 Overall Score</h4>
+                    <p>English Proficiency</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" class="contact-section">
+        <div class="section-header reveal">
+            <p class="section-label">Let's Connect</p>
+            <h2 class="section-title">Get In Touch</h2>
+        </div>
+        <p class="reveal" style="color: var(--text-secondary); max-width: 500px; margin: 0 auto 2rem;">
+            I'm actively looking for remote internships, volunteer roles, or junior data analyst positions. Let's talk!
+        </p>
+        <div class="contact-links reveal">
+            <a href="mailto:yburakcetin@gmail.com" class="contact-link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" /></svg>
+                yburakcetin@gmail.com
+            </a>
+            <a href="https://www.linkedin.com/in/yburakcetin/" target="_blank" class="contact-link">
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                LinkedIn
+            </a>
+            <a href="https://portfoliosample.com/" target="_blank" class="contact-link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg>
+                Portfolio
+            </a>
+            <a href="tel:+905510571208" class="contact-link">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 002.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-.282.376-.769.542-1.21.38a12.035 12.035 0 01-7.143-7.143c-.162-.441.004-.928.38-1.21l1.293-.97c.363-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 00-1.091-.852H4.5A2.25 2.25 0 002.25 4.5v2.25z" /></svg>
+                +90 551 057 1208
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 Yigithan Burak Cetin. Built with passion for data.</p>
+    </footer>
+
+    <script>
+        // Navbar scroll
+        window.addEventListener('scroll', () => {
+            document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
+        });
+
+        // Mobile nav
+        function toggleNav() { document.getElementById('navLinks').classList.toggle('open'); }
+        function closeNav() { document.getElementById('navLinks').classList.remove('open'); }
+
+        // Reveal on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('active'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+    </script>
+</body>
+</html>
